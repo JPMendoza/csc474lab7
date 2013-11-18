@@ -181,7 +181,8 @@ void deformGrid(float timeParameter) {
    //this implements linear interpolation on one deformation grid point
    // this makes P2 move back and forth over time between 5 and 15
    //deformedGrid[0] = -5.0 + timeParameter*(-15.0 + 5);
-   deformedGrid[1] = 0.0 + timeParameter*(10.0 - 0);
+   //deformedGrid[1][0].x = 0.0 + timeParameter*(10.0 - 0);
+   //deformedGrid[1][2].y = 0.0 + timeParameter*(10.0 - 0);
    //deformedGrid[2] = 5.0 + timeParameter*(15.0-5.0);
 
 }
