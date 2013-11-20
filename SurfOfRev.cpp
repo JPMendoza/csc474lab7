@@ -227,7 +227,8 @@ class SOR {
 
           void deformSORVertices(glm::vec3 unDeformedGrid[3][3], glm::vec3 deformedGrid[3][3]) {
              // This method uses the deformed grid to deform all the objects in the scene
-             double S[3][3];
+             double S[3];
+             double U[3];
 
              // find min and max of undeformed grid
              float xMin = unDeformedGrid[0][0].x;
@@ -241,24 +242,20 @@ class SOR {
                 float y = vertexAtts[i+1];
                 // this s is the location parameter within the undeformed grid
                 double s = (x - xMin) / (xMax - xMin);
-                S[0][0] = (1-s)*(1-s);
-                S[1][0] = 2*s*(1-s);
-                S[2][0] = s*s;
+                S[0] = (1-s)*(1-s);
+                S[1] = 2*s*(1-s);
+                S[2] = s*s;
                 double s1 = (y - yMin) / (yMax - yMin);
-                S[0][1] = (1-s1)*(1-s1);
-                S[1][1] = 2*s1*(1-s1);
-                S[2][1] = s1*s1;
+                U[0] = (1-s1)*(1-s1);
+                U[1] = 2*s1*(1-s1);
+                U[2] = s1*s1;
 
                 // just change the x coordinate
 
                 for(int j =0; j < 3; j++) {
                    for(int k = 0; k<3; k++) {
-                     // vertexAtts[i] += S[j][0]*S[j][1]*deformedGrid[j][k].x;// i+
-                                      //S[1][0]*S[1][2]*deformedGrid[j][k].x +
-                                      //S[2][0]*S[2][2]*deformedGrid[j][k].x;
-                      vertexAtts[i+1] += S[j][0]*S[j][1]*deformedGrid[j][k].y;// +
-                                       // S[1][0]*S[1][2]*deformedGrid[j][k].y +
-                                       // S[2][0]*S[2][2]*deformedGrid[j][k].y;
+                      vertexAtts[i] += S[j]*U[k]*deformedGrid[j][k].x;
+                      vertexAtts[i+1] += S[j]*U[k]*deformedGrid[j][k].y;
                    }
                 }
 
